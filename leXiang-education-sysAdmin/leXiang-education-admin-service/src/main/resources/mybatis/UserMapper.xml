@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.LeXiang.mapper.AdminMapper" >
+
+
+    <insert id="insert" parameterType="com.LeXiang.education.sysAdmin.common.model.Admin">
+        insert into  admin (username,encodedPassword)
+        values (#{username},#{encodedPassword})
+
+    </insert>
+    <select id="queryShouye" resultType="com.LeXiang.education.user.common.model.Shop">
+        select * from t_shangpin
+    </select>
+    <select id="queryPlay" resultType="com.LeXiang.education.user.common.model.PlayClassgtj">
+        select * from playclass
+    </select>
+</mapper>
