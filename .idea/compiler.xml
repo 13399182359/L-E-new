@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="leXiang-education-admin-feign" />
+        <module name="LeXiang-education-sysAdmin-common" />
+        <module name="leXiang-education-user-feign" />
+        <module name="eureka" />
+        <module name="userweb" />
+        <module name="leXiang-education-user-common" />
+        <module name="leXiang-education-user-service" />
+        <module name="boss" />
+        <module name="service" />
+        <module name="config" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="boss" target="1.8" />
+      <module name="config" target="1.8" />
+      <module name="eureka" target="1.8" />
+      <module name="L-E-new" target="1.8" />
+      <module name="leXiang-education-admin" target="1.8" />
+      <module name="leXiang-education-admin-feign" target="1.8" />
+      <module name="LeXiang-education-sysAdmin-common" target="1.8" />
+      <module name="leXiang-education-user" target="1.8" />
+      <module name="leXiang-education-user-common" target="1.8" />
+      <module name="leXiang-education-user-feign" target="1.8" />
+      <module name="leXiang-education-user-service" target="1.8" />
+      <module name="service" target="1.8" />
+      <module name="userweb" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="LeXiang-education-sysAdmin-common" options="-parameters" />
+      <module name="boss" options="-parameters" />
+      <module name="config" options="-parameters" />
+      <module name="eureka" options="-parameters" />
+      <module name="leXiang-education-admin-feign" options="-parameters" />
+      <module name="leXiang-education-user-common" options="-parameters" />
+      <module name="leXiang-education-user-feign" options="-parameters" />
+      <module name="leXiang-education-user-service" options="-parameters" />
+      <module name="service" options="-parameters" />
+      <module name="userweb" options="-parameters" />
+    </option>
+  </component>
+</project>

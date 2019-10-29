@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jk.mapper.MiaoshaXqMapper" >
+
+    <select id="count" resultType="java.lang.Integer">
+        select count(*) from miaosha
+    </select>
+
+    <!--<select id="findXqDazhe" parameterType="map" resultType="map">
+        select m.*,p.username,p.phone,u.email from liuyan l left join user u on l.userid=u.id where l.status = 0
+        limit #{page},#{rows}
+    </select>-->
+
+    <!--<select id="findXqMessage" parameterType="map" resultType="map">
+        SELECT
+        m.*,
+        u1.username
+        FROM
+        message m
+        LEFT JOIN USER u1 ON m.sender = u1.id and /*m.sender=u.id and m.source=u.id and*/ m.status=1
+        &lt;!&ndash;<include refid="sql"></include>&ndash;&gt;
+        limit #{page},#{rows}
+    </select>
+
+    <select id="countHS" resultType="java.lang.Integer">
+        select count(*) from message where status = 0
+        &lt;!&ndash;<include refid="sql"></include>&ndash;&gt;
+    </select>
+
+    <select id="findXqMessageHuiShou" parameterType="map" resultType="map">
+        SELECT
+        m.*,
+        u1.username
+        FROM
+        message m
+        LEFT JOIN USER u1 ON m.sender = u1.id and/*m.sender=u.id and m.source=u.id and*/ status=0
+        &lt;!&ndash;<include refid="sql"></include>&ndash;&gt;
+        limit #{page},#{rows}
+    </select>
+
+    <update id="huishouById" parameterType="java.lang.Integer">
+        update message set status = 0 where id = #{id}
+    </update>
+
+    <update id="huifuById" parameterType="java.lang.Integer">
+        update message set status = 1 where id = #{id}
+    </update>
+
+    <delete id="delMessageByIds" parameterType="java.lang.Integer">
+        delete from message where id = #{id}
+    </delete>-->
+   <!--<select id="count" resultType="java.lang.Integer">
+        select count(*) from dazhe
+    </select>-->
+
+    <select id="findXqDazhe" parameterType="map" resultType="map">
+        select m.*,p.playname,p.leixing from miaosha m left join playclass p on m.cid=p.id
+        limit #{page},#{rows}
+    </select>
+
+    <insert id="addXqMiaosha" parameterType="com.LeXiang.education.sysAdmin.common.model.MiaoshaXq">
+        insert into miaosha(cid,price,count,status,starttime,endtime,createtime) values(#{cid},#{price},#{count},#{status},#{starttime},#{endtime},#{createtime})
+    </insert>
+
+    <!-- <select id="countHS" resultType="java.lang.Integer">
+        select count(*) from liuyan where status = 0
+    </select>
+
+    <select id="findXqLiuyanHS" parameterType="map" resultType="map">
+        select l.*,u.username,u.phone,u.email from liuyan l left join user u on l.userid=u.id where l.status = 0
+        limit #{page},#{rows}
+    </select>
+
+    <update id="huishouLiuyanXq" parameterType="java.lang.Integer">
+        update liuyan set status = 0 where id = #{id}
+    </update>
+
+    <update id="huifuLiuyanXq" parameterType="java.lang.Integer">
+        update liuyan set status = 1 where id = #{id}
+    </update>-->
+
+    <delete id="delMiaoshaXq" parameterType="java.lang.Integer">
+        delete from miaosha where id = #{id}
+    </delete>
+
+    <select id="findXqMiaoshaOne" parameterType="java.lang.Integer" resultType="com.LeXiang.education.sysAdmin.common.model.MiaoshaXq">
+        select m.*,p.playname,p.leixing from miaosha m left join playclass p on m.cid=p.id where m.id=#{id}
+    </select>
+
+    <!--<select id="findXqDazheOne" resultType="com.LeXiang.education.sysAdmin.common.model.DazheXq">
+        select d.*,p.playname,p.leixing from dazhe d left join playclass p on d.cid=p.id where p.id=#{id}
+    </select>
+
+    <update id="updMiaoShaXq" parameterType="com.LeXiang.education.sysAdmin.common.model.DazheXq">
+        update dazhe set discounted = #{discounted},status = #{status},starttime = #{starttime},endtime = #{endtime} where id = #{id}
+    </update>
+
+    <insert id="addXqDazhe" parameterType="com.LeXiang.education.sysAdmin.common.model.DazheXq">
+        insert into dazhe(cid,discounted,status,starttime,endtime,createtime) values(#{cid},#{discounted},#{status},#{starttime},#{endtime},#{createtime})
+    </insert>-->
+
+    <update id="updMiaoShaXq" parameterType="com.LeXiang.education.sysAdmin.common.model.MiaoshaXq">
+        update miaosha set price = #{price},count = #{count},status = #{status},starttime = #{starttime},endtime = #{endtime} where id = #{id}
+    </update>
+
+</mapper>
