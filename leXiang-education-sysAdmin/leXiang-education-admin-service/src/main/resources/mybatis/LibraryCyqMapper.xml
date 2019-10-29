@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jk.mapper.LibraryCyqMapper">
+    <select id="findLibraryCount" resultType="java.lang.Integer">
+        select count(*) from library
+    </select>
+
+    <sql id="sql">
+        <where>
+            <if test="library != null">
+                <if test="library.title != null and library.title != ''">
+                    title like "%"#{library.title}"%"
+                </if>
+            </if>
+        </where>
+    </sql>
+
+    <select id="findLibrary" parameterType="map" resultType="map">
+        select l.*,u.username from library l left join user u on l.userId = u.id
+        <include refid="sql"></include>
+        limit #{page},#{rows}
+    </select>
+    
+    <select id="findLibraryById" parameterType="java.lang.Long" resultType="com.LeXiang.education.sysAdmin.common.model.Library">
+        select * from library where id = #{id}
+    </select>
+    
+    <update id="updateLibrary" parameterType="com.LeXiang.education.sysAdmin.common.model.Library">
+        update library set userId=#{userId},title=#{title},price=#{price},info=#{info},status=#{status},
+        audit=#{audit},recommended=#{recommended},downloadNumber=#{downloadNumber},uploadTime=#{uploadTime}
+        where id = #{id}
+    </update>
+
+    <update id="updLibraryStatus" parameterType="java.lang.Long">
+        update library set status = 0 where id = {id}
+    </update>
+
+    <update id="libraryStatusUpd" parameterType="java.lang.Long">
+        update library set status = 1 where id = {id}
+    </update>
+
+    <insert id="insertLibrary" parameterType="com.LeXiang.education.sysAdmin.common.model.Library">
+        insert into library (userId,title,price,info,status,audit,recommended,downloadNumber,uploadTime) values
+        (#{userId},#{title},#{price},#{info},#{status},#{audit},#{recommended},#{downloadNumber},#{uploadTime})
+    </insert>
+</mapper>

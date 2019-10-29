@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jk.mapper.RemarkCyqMapper">
+    <select id="findRemarkCount" resultType="java.lang.Integer">
+        select count(*) from remark
+    </select>
+
+    <sql id="sql">
+        <where>
+            <if test="remark != null">
+                <if test="remark.content != null and remark.content != ''">
+                    content like "%"#{remark.content}"%"
+                </if>
+            </if>
+        </where>
+    </sql>
+
+    <select id="findRemark" parameterType="map" resultType="map">
+        select r.*,u.username,p.playname from remark r left join user u on r.userId = u.id
+        left join playclass p on r.playId = p.id
+        <include refid="sql"></include>
+        limit #{page},#{rows}
+    </select>
+
+    <delete id="deleteRemark" parameterType="java.lang.Long">
+        delete from remark where id = #{id}
+    </delete>
+
+    <update id="updRemarkShow" parameterType="java.lang.Long">
+        update remark set remarkShow = 0 where id = #{id}
+    </update>
+
+    <update id="remarkShowUpd" parameterType="java.lang.Long">
+        update remark set remarkShow = 1 where id = #{id}
+    </update>
+</mapper>

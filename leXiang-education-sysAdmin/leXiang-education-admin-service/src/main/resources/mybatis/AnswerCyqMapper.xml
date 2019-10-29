@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jk.mapper.AnswerCyqMapper">
+    <sql id="sql">
+        <where>
+            <if test="answer != null">
+                <if test="answer.descriptive != null and answer.descriptive != ''">
+                    descriptive like "%"#{answer.descriptive}"%"
+                </if>
+            </if>
+        </where>
+    </sql>
+    <select id="findAnswerCount" resultType="java.lang.Integer">
+        select count(*) from answer
+    </select>
+    <select id="findAnswer"  resultType="map" parameterType="map">
+        select a.*,u.username from answer a left join user u on a.userId = u.id
+        <include refid="sql"></include>
+        order by stick desc
+        limit #{page},#{rows}
+    </select>
+
+    <delete id="deleteAnswer" parameterType="java.lang.Long">
+        delete from answer where id = #{id}
+    </delete>
+
+    <update id="updAnswerStick" parameterType="java.lang.Long">
+        update answer set stick = 1 where id = #{id}
+    </update>
+    <update id="answerStickUpd" parameterType="java.lang.Long">
+        update answer set stick = 0 where id = #{id}
+    </update>
+</mapper>

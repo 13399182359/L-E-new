@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jk.mapper.QuizCyqMapper">
+    <select id="findQuizCount" resultType="java.lang.Integer">
+        select count(*) from quiz
+    </select>
+
+    <sql id="sql">
+        <where>
+            <if test="quiz != null">
+                <if test="quiz.descriptive != null and quiz.descriptive != ''">
+                    descriptive like "%"#{quiz.descriptive}"%"
+                </if>
+            </if>
+        </where>
+    </sql>
+    
+    <select id="findQuiz" resultType="map" parameterType="map">
+        select q.*,u.username,p.playname from quiz q left join user u on q.userId = u.id
+        left join playclass p on q.playId = p.id
+        <include refid="sql"></include>
+        limit #{page},#{rows}
+    </select>
+
+    <delete id="deleteQuiz" parameterType="java.lang.Long">
+        delete from quiz where id = #{id}
+    </delete>
+</mapper>

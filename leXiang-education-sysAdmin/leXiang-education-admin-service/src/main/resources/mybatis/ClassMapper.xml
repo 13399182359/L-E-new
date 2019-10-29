@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jk.mapper.ClassMapper" >
+  <sql id="Base_Column_List" >
+    id,name,age
+  </sql>
+  <select id="queryUserById" resultType="com.LeXiang.education.sysAdmin.common.model.Class" parameterType="java.lang.Long" >
+    select
+   *
+    from class
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="delete" parameterType="java.lang.Long" >
+    delete from class
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+
+    <update id="updateStatus" parameterType="java.lang.Long">
+        update class set status = 1 where id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updStatus" parameterType="java.lang.Long">
+        update class set status = 0 where id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <update id="ismarketing" parameterType="java.lang.Long">
+        update class set ismarketing = 0 where id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="ismarketings" parameterType="java.lang.Long">
+        update class set ismarketing = 1 where id = #{id,jdbcType=BIGINT}
+    </update>
+
+  <insert id="insert" parameterType="com.LeXiang.education.sysAdmin.common.model.Class" >
+    insert into class (id, name, price, studyNumber, marketingcount, img, userid, createTime, downdate, classtype,
+       organization, intro, course, displayposition, ismarketing, teachermoney, organizationmoney
+      )
+    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{price,jdbcType=INTEGER}, #{studyNumber,jdbcType=INTEGER},
+            #{marketingcount,jdbcType=INTEGER}, #{img,jdbcType=VARCHAR},#{userid,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP},
+            #{downdate,jdbcType=TIMESTAMP},#{classtype,jdbcType=INTEGER},#{organization,jdbcType=INTEGER},#{intro,jdbcType=VARCHAR},
+            #{course,jdbcType=VARCHAR},#{displayposition,jdbcType=INTEGER},#{ismarketing,jdbcType=INTEGER},#{teachermoney,jdbcType=INTEGER},
+            #{organizationmoney,jdbcType=INTEGER}
+      )
+  </insert>
+
+  <update id="update" parameterType="com.LeXiang.education.sysAdmin.common.model.Class" >
+    update class set name = #{name,jdbcType=VARCHAR},
+        price = #{price,jdbcType=INTEGER},studyNumber = #{studyNumber,jdbcType=INTEGER},marketingcount = #{marketingcount,jdbcType=INTEGER},
+        img = #{img,jdbcType=VARCHAR},userid = #{userid,jdbcType=BIGINT},createTime = #{createTime,jdbcType=TIMESTAMP},downdate = #{downdate,jdbcType=TIMESTAMP},
+        classtype = #{classtype,jdbcType=INTEGER},organization = #{organization,jdbcType=INTEGER},intro = #{intro,jdbcType=VARCHAR},
+        course = #{course,jdbcType=VARCHAR},displayposition = #{displayposition,jdbcType=INTEGER},ismarketing = #{ismarketing,jdbcType=INTEGER},
+        teachermoney = #{teachermoney,jdbcType=INTEGER},organizationmoney = #{organizationmoney,jdbcType=INTEGER}
+       where id = #{id,jdbcType=BIGINT}
+  </update>
+
+    <sql id="sql">
+        <where>
+            status = 1
+            <if test="cls!=null">
+                <if test="cls.name != null and cls.name != ''">
+                    and name like "%"#{cls.name}"%"
+                </if>
+            </if>
+        </where>
+    </sql>
+
+  <select id="userList" parameterType="map" resultType="map">
+   select c.*,u.username from class c left join user u on c.userId = u.id
+      <include refid="sql"></include>
+    limit #{page},#{rows}
+  </select>
+  <select id="findStatus" parameterType="map" resultType="map">
+   select * from class
+      where status = 0
+    limit #{page},#{rows}
+  </select>
+  <select id="getCount" resultType="java.lang.Integer">
+    select count(*) from class where status = 1
+  </select>
+  <select id="getCountStatus" resultType="java.lang.Integer">
+    select count(*) from class where status = 0
+  </select>
+</mapper>

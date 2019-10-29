@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jk.mapper.NoteCyqMapper">
+    <select id="findNoteCount" resultType="java.lang.Integer">
+        select count(*) from note
+    </select>
+
+    <sql id="sql">
+        <where>
+            <if test="note!=null">
+                <if test="note.title!=null and note.title!=''">
+                    title like "%"#{note.title}"%"
+                </if>
+                <if test="note.descriptive!=null and note.descriptive!=''">
+                  and descriptive like "%"#{note.descriptive}"%"
+                </if>
+            </if>
+        </where>
+    </sql>
+
+    <select id="findNote" resultType="map" parameterType="map">
+        select n.*,u.username,p.playname from note n left join user u on n.userId=u.id left join playclass p on n.playId=p.id
+        <include refid="sql"></include>
+        limit #{page},#{rows}
+    </select>
+
+    <delete id="deleteNote" parameterType="java.lang.Long">
+        delete from note where id = #{id}
+    </delete>
+
+    <update id="noteShowUpd" parameterType="java.lang.Long">
+        update note set noteShow = 1 where id = #{id}
+    </update>
+
+    <update id="updNoteShow" parameterType="java.lang.Long">
+        update note set noteShow = 0 where id = #{id}
+    </update>
+</mapper>

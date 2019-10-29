@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jk.mapper.CourseCyqMapper">
+    <select id="findCourseCount" resultType="java.lang.Integer">
+        select count(*) from course where status = 1 and audit = 1
+    </select>
+    <select id="findCourse" parameterType="map" resultType="map">
+        select c.*,u.username from course c left join user u on c.userId = u.id
+        <include refid="sql"></include>
+        limit #{page},#{rows}
+    </select>
+
+    <select id="findStatusCount" resultType="java.lang.Integer">
+        select count(*) from course where status = 0
+    </select>
+    <select id="findStatus" parameterType="map" resultType="map">
+        select * from course where status = 0
+        limit #{page},#{rows}
+    </select>
+
+    <insert id="insert" parameterType="com.LeXiang.education.sysAdmin.common.model.Course">
+        insert into course (name,price,studyNumber,marketingNumber,img,userId,lecturerId,audit,free,createTime,updateTime,type,organization,info,startTime,endTime,site,status,displayposition) values
+        (#{name},#{price},#{studyNumber},#{marketingNumber},#{img},#{userId},#{lecturerId},#{audit},#{free},#{createTime},#{updateTime},#{type},#{organization},#{info},#{startTime},#{endTime},#{site},#{status},#{displayposition})
+    </insert>
+
+    <delete id="delete" parameterType="java.lang.Long">
+        delete from course where id = #{id}
+    </delete>
+
+    <select id="findById" parameterType="java.lang.Long" resultType="com.LeXiang.education.sysAdmin.common.model.Course">
+       select * from course where id = #{id}
+    </select>
+
+    <update id="update" parameterType="com.LeXiang.education.sysAdmin.common.model.Course">
+        update course set name=#{name},price=#{price},studyNumber=#{studyNumber},marketingNumber=#{marketingNumber},img=#{img},userId=#{userId},lecturerId=#{lecturerId},audit=#{audit},free=#{free},createTime=#{createTime},updateTime=#{updateTime},type=#{type},organization=#{organization},info=#{info},startTime=#{startTime},endTime=#{endTime},
+        site=#{site},status=#{status},displayposition=#{displayposition} where id = #{id}
+    </update>
+
+    <update id="updStatus" parameterType="java.lang.Long">
+        update course set  status = 0  where id = #{id};
+    </update>
+
+    <update id="statusUpd" parameterType="java.lang.Long">
+        update course set  status = 1  where id = #{id};
+    </update>
+    <sql id="sql">
+        <where>
+            status = 1 and audit = 1
+            <if test="course != null">
+                <if test="course.name != null and course.name != ''">
+                    and name like "%"#{course.name}"%"
+                </if>
+            </if>
+        </where>
+    </sql>
+
+    <select id="findCourseAuditCount" resultType="java.lang.Integer">
+        select count(*) from course where status = 1 and audit = 0
+    </select>
+
+    <select id="findCourseAudit" resultType="map" parameterType="map">
+        select * from course where status = 1 and audit = 0
+        limit #{page},#{rows}
+    </select>
+
+    <update id="updCourseAudit" parameterType="java.lang.Long">
+        update course set audit = 1 where id = #{id}
+    </update>
+</mapper>
