@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jk.mapper.PageXqMapper" >
+    <!--<select id="count" resultType="java.lang.Integer">
+        select count(*) from information
+    </select>
+
+    <select id="selectInformation" resultType="com.LeXiang.education.sysAdmin.common.model.Information">
+        select * from information limit #{page},#{rows}
+    </select>
+
+    <select id="toupd" resultType="com.LeXiang.education.sysAdmin.common.model.Information">
+        select * from information where id = #{id}
+    </select>
+
+    <insert id="addInformation" parameterType="com.LeXiang.education.sysAdmin.common.model.Information">
+        insert into information(no,title,type,createdate,source,recommed,content,img,orderid,count) values (#{no},#{title},#{type},#{createdate},#{source},#{recommed},#{content},#{img},#{orderid},#{count})
+    </insert>
+
+    <delete id="delById" parameterType="java.lang.Integer">
+        delete from information where id = #{id}
+    </delete>
+
+    <update id="updInformation" parameterType="com.LeXiang.education.sysAdmin.common.model.Information" >
+        update information set no = #{no}, title = #{title}, type = #{type}, createdate = #{createdate}, source = #{source}, recommed = #{recommed}, content = #{content}, img = #{img},orderid = #{orderid},count = #{count} where id = #{id}
+    </update>-->
+
+    <select id="count" resultType="java.lang.Integer">
+        select count(*) from page
+    </select>
+
+    <select id="findPage" resultType="com.LeXiang.education.sysAdmin.common.model.PageXq">
+        select * from page limit #{page},#{rows}
+    </select>
+
+    <delete id="detById" parameterType="java.lang.Integer">
+        delete from page where id = #{id}
+    </delete>
+
+    <insert id="addxqpage" parameterType="com.LeXiang.education.sysAdmin.common.model.PageXq">
+        insert into page(title,identify,content) values(#{title},#{identify},#{content})
+    </insert>
+
+    <select id="toupdXqPage" parameterType="java.lang.Integer" resultType="com.LeXiang.education.sysAdmin.common.model.PageXq">
+        select * from page where id = #{id}
+    </select>
+
+    <update id="updXqPage" parameterType="com.LeXiang.education.sysAdmin.common.model.PageXq">
+        update page set title = #{title},identify= #{identify},content= #{content} where id = #{id}
+    </update>
+</mapper>
