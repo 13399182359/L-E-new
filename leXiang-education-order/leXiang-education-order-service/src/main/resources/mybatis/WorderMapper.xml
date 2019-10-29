@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.LeXiang.mapper.WorderMapper" >
+
+  <resultMap id="BaseResultMap" type="com.LeXiang.education.order.common.model.PlayClassgtj" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="playname" property="playname" jdbcType="VARCHAR" />
+    <result column="img" property="img" jdbcType="VARCHAR" />
+    <result column="bazaarprice" property="bazaarprice" jdbcType="BIGINT" />
+    <result column="price" property="price" jdbcType="BIGINT" />
+    <result column="userid" property="userid" jdbcType="BIGINT" />
+    <result column="teacherid" property="teacherid" jdbcType="BIGINT" />
+    <result column="grade" property="grade" jdbcType="BIGINT" />
+    <result column="studentcount" property="studentcount" jdbcType="BIGINT" />
+    <result column="marketingcount" property="marketingcount" jdbcType="BIGINT" />
+    <result column="isfree" property="isfree" jdbcType="BIGINT" />
+    <result column="ischoiceness" property="ischoiceness" jdbcType="BIGINT" />
+    <result column="uponedate" property="uponedate" jdbcType="DATE" />
+    <result column="downdate" property="downdate" jdbcType="DATE" />
+    <result column="playtypeid" property="playtypeid" jdbcType="BIGINT" />
+    <result column="organizationid" property="organizationid" jdbcType="BIGINT" />
+    <result column="intro" property="intro" jdbcType="VARCHAR" />
+    <result column="validity" property="validity" jdbcType="BIGINT" />
+    <result column="isvip" property="isvip" jdbcType="BIGINT" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="orderone" property="orderone" jdbcType="BIGINT" />
+    <result column="studymoshi" property="studymoshi" jdbcType="BIGINT" />
+    <result column="displayposition" property="displayposition" jdbcType="BIGINT" />
+    <result column="ismarketing" property="ismarketing" jdbcType="BIGINT" />
+    <result column="status" property="status" jdbcType="BIGINT" />
+    <result column="isdisabled" property="isdisabled" jdbcType="BIGINT" />
+    <result column="teachermoney" property="teachermoney" jdbcType="DOUBLE" />
+    <result column="organizationmoney" property="organizationmoney" jdbcType="DOUBLE" />
+    <result column="isputaway" property="isputaway" jdbcType="BIGINT" />
+    <result column="max" property="max" jdbcType="BIGINT" />
+    <result column="leixing" property="leixing" jdbcType="BIGINT" />
+    <result column="hour" property="hour" jdbcType="BIGINT" />
+    <result column="discounttype" property="discounttype" jdbcType="BIGINT" />
+    <result column="repayment" property="repayment" jdbcType="DATE" />
+    <result column="orderid" property="orderid" jdbcType="BIGINT" />
+    <result column="classid" property="classid" jdbcType="BIGINT" />
+    <result column="studystatus" property="studystatus" jdbcType="BIGINT" />
+    <result column="studydate" property="studydate" jdbcType="DATE" />
+    <result column="liveclassid" property="liveclassid" jdbcType="BIGINT" />
+    <result column="lineclassid" property="lineclassid" jdbcType="BIGINT" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="orgname" property="orgname" jdbcType="VARCHAR" />
+    <result column="teachername" property="teachername" jdbcType="VARCHAR" />
+    <result column="realname" property="realname" jdbcType="VARCHAR" />
+    <result column="period" property="period" jdbcType="DATE" />
+    <result column="discount" property="discount" jdbcType="DOUBLE" />
+    <result column="mealname" property="mealname" jdbcType="VARCHAR" />
+    <result column="refundstatus" property="refundstatus" jdbcType="BIGINT" />
+    <result column="refunddate" property="refunddate" jdbcType="DATE" />
+    <result column="mealid" property="mealid" jdbcType="BIGINT" />
+    <result column="uid" property="uid" jdbcType="BIGINT" />
+    <result column="demandclassid" property="demandclassid" jdbcType="BIGINT" />
+    <result column="refundreason" property="refundreason" jdbcType="VARCHAR" />
+    <result column="refundexplain" property="refundexplain" jdbcType="VARCHAR" />
+    <result column="processing" property="processing" jdbcType="DATE" />
+  </resultMap>
+
+  <sql id="sql">
+    <where>
+    <if test="playClassgtj!=null">
+      <if test="playClassgtj.id!=null">
+        and id = #{playClassgtj.id}
+      </if>
+      <if test="playClassgtj.classid!=null">
+        and classid = #{playClassgtj.classid}
+      </if>
+      <if test="playClassgtj.orderid!=null">
+        and orderid = #{playClassgtj.orderid}
+      </if>
+      <if test="playClassgtj.playname != null and playClassgtj.playname != ''">
+        and playname like "%"#{playClassgtj.playname}"%"
+      </if>
+      <if test="playClassgtj.userid != null">
+        and userid = #{playClassgtj.userid}
+      </if>
+      <if test="playClassgtj.teacherid != null">
+        and teacherid = #{playClassgtj.teacherid}
+      </if>
+      <if test="playClassgtj.isfree != null">
+        and isfree = #{playClassgtj.isfree}
+      </if>
+      <if test="playClassgtj.ischoiceness != null">
+        and ischoiceness = #{playClassgtj.ischoiceness}
+      </if>
+      <if test="playClassgtj.uponedate != null and playClassgtj.uponedate != ''">
+        and uponedate &gt;= #{playClassgtj.uponedate}
+      </if>
+      <if test="playClassgtj.downdate != null and playClassgtj.downdate != ''">
+        and downdate &lt;= #{playClassgtj.downdate}
+      </if>
+      <if test="playClassgtj.leixing != null ">
+        and leixing = #{playClassgtj.leixing}
+      </if>
+      <if test="playClassgtj.organizationid != null ">
+        and organizationid = #{playClassgtj.organizationid}
+      </if>
+      <if test="playClassgtj.liveclassid != null ">
+        and liveclassid = #{playClassgtj.liveclassid}
+      </if>
+      <if test="playClassgtj.lineclassid != null ">
+        and liveclassid = #{playClassgtj.lineclassid}
+      </if>
+      <if test="playClassgtj.demandclassid != null ">
+        and demandclassid = #{playClassgtj.demandclassid}
+      </if>
+      <if test="playClassgtj.teachername != null and playClassgtj.teachername != ''">
+        and teachername like "%"#{playClassgtj.teachername}"%"
+      </if>
+      <if test="playClassgtj.username != null and playClassgtj.username != ''">
+        and username like "%"#{playClassgtj.username}"%"
+      </if>
+      <if test="playClassgtj.orgname != null and playClassgtj.orgname != ''">
+        and orgname like "%"#{playClassgtj.orgname}"%"
+      </if>
+      /*================================================*/
+      <if test="playClassgtj.uid != null ">
+        and uid = #{playClassgtj.uid}
+      </if>
+      <if test="playClassgtj.mealid != null ">
+        and mealid = #{playClassgtj.mealid}
+      </if>
+      <if test="playClassgtj.refunddate != null and playClassgtj.refunddate != ''">
+        and refunddate &gt;= #{playClassgtj.refunddate}
+      </if>
+      <if test="playClassgtj.processing != null and playClassgtj.processing != ''">
+        and processing &lt;= #{playClassgtj.processing}
+      </if>
+    </if>
+    </where>
+  </sql>
+
+  <!--分页查询-->
+  <select id="queryOrder"  resultMap="BaseResultMap">
+    select * from playclass
+    <include refid="sql"></include>
+    limit #{start},#{rows}
+  </select>
+
+  <select id="getCount" resultType="java.lang.Integer">
+    select count(*) from playclass
+    <include refid="sql"></include>
+  </select>
+
+  <select id="queryOrderAll" resultMap="BaseResultMap">
+    select * from playclass
+    <if test="playClassgtj!=null">
+     <include refid="sql"></include>
+    </if>
+  </select>
+
+  <delete id="delOrderById" parameterType="java.lang.Long" >
+    delete from playclass
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+
+  <select id="toeditOrderById" resultMap="BaseResultMap" parameterType="java.lang.Long">
+    select * from playclass where id=#{id,jdbcType=BIGINT}
+  </select>
+
+</mapper>

@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.LeXiang.mapper.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.LeXiang.education.order.common.model.User" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="amount" property="amount" jdbcType="DECIMAL" />
+    <result column="balance" property="balance" jdbcType="DECIMAL" />
+    <result column="birth" property="birth" jdbcType="TIMESTAMP" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="encodedPassword" property="encodedpassword" jdbcType="VARCHAR" />
+    <result column="gender" property="gender" jdbcType="INTEGER" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="point" property="point" jdbcType="BIGINT" />
+    <result column="safeKeyExpire" property="safekeyexpire" jdbcType="TIMESTAMP" />
+    <result column="safeKeyValue" property="safekeyvalue" jdbcType="VARCHAR" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="zipCode" property="zipcode" jdbcType="VARCHAR" />
+    <result column="area_id" property="areaId" jdbcType="BIGINT" />
+    <result column="memberRank_id" property="memberrankId" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, address, amount, balance, birth, email, encodedPassword, gender, mobile, name, 
+    phone, point, safeKeyExpire, safeKeyValue, username, zipCode, area_id, memberRank_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from user
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.LeXiang.education.order.common.model.User" >
+    insert into user (id, address, amount, 
+      balance, birth, email, 
+      encodedPassword, gender, mobile, 
+      name, phone, point, 
+      safeKeyExpire, safeKeyValue, username, 
+      zipCode, area_id, memberRank_id
+      )
+    values (#{id,jdbcType=BIGINT}, #{address,jdbcType=VARCHAR}, #{amount,jdbcType=DECIMAL}, 
+      #{balance,jdbcType=DECIMAL}, #{birth,jdbcType=TIMESTAMP}, #{email,jdbcType=VARCHAR}, 
+      #{encodedpassword,jdbcType=VARCHAR}, #{gender,jdbcType=INTEGER}, #{mobile,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{point,jdbcType=BIGINT}, 
+      #{safekeyexpire,jdbcType=TIMESTAMP}, #{safekeyvalue,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, 
+      #{zipcode,jdbcType=VARCHAR}, #{areaId,jdbcType=BIGINT}, #{memberrankId,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.LeXiang.education.order.common.model.User" >
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="amount != null" >
+        amount,
+      </if>
+      <if test="balance != null" >
+        balance,
+      </if>
+      <if test="birth != null" >
+        birth,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="encodedpassword != null" >
+        encodedPassword,
+      </if>
+      <if test="gender != null" >
+        gender,
+      </if>
+      <if test="mobile != null" >
+        mobile,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="point != null" >
+        point,
+      </if>
+      <if test="safekeyexpire != null" >
+        safeKeyExpire,
+      </if>
+      <if test="safekeyvalue != null" >
+        safeKeyValue,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
+      <if test="zipcode != null" >
+        zipCode,
+      </if>
+      <if test="areaId != null" >
+        area_id,
+      </if>
+      <if test="memberrankId != null" >
+        memberRank_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="balance != null" >
+        #{balance,jdbcType=DECIMAL},
+      </if>
+      <if test="birth != null" >
+        #{birth,jdbcType=TIMESTAMP},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="encodedpassword != null" >
+        #{encodedpassword,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        #{gender,jdbcType=INTEGER},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="point != null" >
+        #{point,jdbcType=BIGINT},
+      </if>
+      <if test="safekeyexpire != null" >
+        #{safekeyexpire,jdbcType=TIMESTAMP},
+      </if>
+      <if test="safekeyvalue != null" >
+        #{safekeyvalue,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="zipcode != null" >
+        #{zipcode,jdbcType=VARCHAR},
+      </if>
+      <if test="areaId != null" >
+        #{areaId,jdbcType=BIGINT},
+      </if>
+      <if test="memberrankId != null" >
+        #{memberrankId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.LeXiang.education.order.common.model.User" >
+    update user
+    <set >
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        amount = #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="balance != null" >
+        balance = #{balance,jdbcType=DECIMAL},
+      </if>
+      <if test="birth != null" >
+        birth = #{birth,jdbcType=TIMESTAMP},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="encodedpassword != null" >
+        encodedPassword = #{encodedpassword,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        gender = #{gender,jdbcType=INTEGER},
+      </if>
+      <if test="mobile != null" >
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="point != null" >
+        point = #{point,jdbcType=BIGINT},
+      </if>
+      <if test="safekeyexpire != null" >
+        safeKeyExpire = #{safekeyexpire,jdbcType=TIMESTAMP},
+      </if>
+      <if test="safekeyvalue != null" >
+        safeKeyValue = #{safekeyvalue,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="zipcode != null" >
+        zipCode = #{zipcode,jdbcType=VARCHAR},
+      </if>
+      <if test="areaId != null" >
+        area_id = #{areaId,jdbcType=BIGINT},
+      </if>
+      <if test="memberrankId != null" >
+        memberRank_id = #{memberrankId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.LeXiang.education.order.common.model.User" >
+    update user
+    set address = #{address,jdbcType=VARCHAR},
+      amount = #{amount,jdbcType=DECIMAL},
+      balance = #{balance,jdbcType=DECIMAL},
+      birth = #{birth,jdbcType=TIMESTAMP},
+      email = #{email,jdbcType=VARCHAR},
+      encodedPassword = #{encodedpassword,jdbcType=VARCHAR},
+      gender = #{gender,jdbcType=INTEGER},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      point = #{point,jdbcType=BIGINT},
+      safeKeyExpire = #{safekeyexpire,jdbcType=TIMESTAMP},
+      safeKeyValue = #{safekeyvalue,jdbcType=VARCHAR},
+      username = #{username,jdbcType=VARCHAR},
+      zipCode = #{zipcode,jdbcType=VARCHAR},
+      area_id = #{areaId,jdbcType=BIGINT},
+      memberRank_id = #{memberrankId,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

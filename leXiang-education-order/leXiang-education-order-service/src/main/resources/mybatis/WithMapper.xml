@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.LeXiang.mapper.WithMapper" >
+
+  <!--<select id="queryFinList" resultType="com.LeXiang.education.order.common.model.With"  >
+    select * from `with`
+  </select>-->
+
+
+  <resultMap id="BaseResultMap" type="com.LeXiang.education.order.common.model.With" >
+    <id column="widthdrawid" property="widthdrawid" jdbcType="BIGINT" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="withdrawment" property="withdrawment" jdbcType="DOUBLE" />
+    <result column="withdrawtype" property="withdrawtype" jdbcType="BIGINT" />
+    <result column="withdrawname" property="withdrawname" jdbcType="VARCHAR" />
+    <result column="withdrawaccount" property="withdrawaccount" jdbcType="VARCHAR" />
+    <result column="wcreatdate" property="wcreatdate" jdbcType="VARCHAR" />
+    <result column="withdrawstatus" property="withdrawstatus" jdbcType="INTEGER" />
+    <result column="wenddate" property="wenddate" jdbcType="VARCHAR" />
+    <result column="wdisposedate" property="wdisposedate" jdbcType="VARCHAR" />
+    <result column="wlosers" property="wlosers" jdbcType="VARCHAR" />
+    <result column="wcanceldate" property="wcanceldate" jdbcType="VARCHAR" />
+    <result column="wcancells" property="wcancells" jdbcType="VARCHAR" />
+  </resultMap>
+  <!--<sql id="Base_Column_List" >
+    widthdrawid, username, withdrawment, withdrawtype, withdrawname, withdrawaccount, 
+    wcreatdate, withdrawstatus
+  </sql>-->
+
+  <select id="queryFinList" resultMap="BaseResultMap"  >
+    select *
+    from w_with
+  </select>
+
+  <sql id="sql">
+    <where>
+      <if test="with!=null">
+        <if test="with.username!=null and with.username!=''">
+          and username like "%"#{with.username}"%"
+        </if>
+        <if test="with.withdrawstatus!=null ">
+          and withdrawstatus = #{with.withdrawstatus}
+        </if>
+        <if test="with.wcreatdate!=null and with.wcreatdate!=''">
+          and wcreatdate &gt;= #{with.wcreatdate}
+        </if>
+        <if test="with.wenddate!=null and with.wenddate!=''">
+          and wenddate &lt;= #{with.wenddate}
+        </if>
+      </if>
+    </where>
+  </sql>
+
+  <!--分页查询-->
+  <select id="queryFin" resultMap="BaseResultMap">
+    select * from   w_with
+    <include refid="sql"></include>
+    limit #{start},#{rows}
+    </select>
+  <!--返回总记录数目-->
+  <select id="getCount" resultType="int">
+        SELECT COUNT(*) FROM w_with
+        <include refid="sql"></include>
+    </select>
+
+  <delete id="delWithById" parameterType="java.lang.Long" >
+    delete from w_with
+    where widthdrawid = #{id,jdbcType=BIGINT}
+  </delete>
+
+  <update id="updWithById" parameterType="java.lang.Long" >
+    update w_with set withdrawstatus=2
+    where widthdrawid = #{id,jdbcType=BIGINT}
+  </update>
+
+
+
+
+<!--
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from with
+    where widthdrawid = #{widthdrawid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from with
+    where widthdrawid = #{widthdrawid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.LeXiang.education.order.common.model.With" >
+    insert into with (widthdrawid, username, withdrawment, 
+      withdrawtype, withdrawname, withdrawaccount, 
+      wcreatdate, withdrawstatus)
+    values (#{widthdrawid,jdbcType=BIGINT}, #{username,jdbcType=VARCHAR}, #{withdrawment,jdbcType=DOUBLE}, 
+      #{withdrawtype,jdbcType=BIGINT}, #{withdrawname,jdbcType=VARCHAR}, #{withdrawaccount,jdbcType=VARCHAR}, 
+      #{wcreatdate,jdbcType=TIMESTAMP}, #{withdrawstatus,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.LeXiang.education.order.common.model.With" >
+    insert into with
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="widthdrawid != null" >
+        widthdrawid,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
+      <if test="withdrawment != null" >
+        withdrawment,
+      </if>
+      <if test="withdrawtype != null" >
+        withdrawtype,
+      </if>
+      <if test="withdrawname != null" >
+        withdrawname,
+      </if>
+      <if test="withdrawaccount != null" >
+        withdrawaccount,
+      </if>
+      <if test="wcreatdate != null" >
+        wcreatdate,
+      </if>
+      <if test="withdrawstatus != null" >
+        withdrawstatus,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="widthdrawid != null" >
+        #{widthdrawid,jdbcType=BIGINT},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="withdrawment != null" >
+        #{withdrawment,jdbcType=DOUBLE},
+      </if>
+      <if test="withdrawtype != null" >
+        #{withdrawtype,jdbcType=BIGINT},
+      </if>
+      <if test="withdrawname != null" >
+        #{withdrawname,jdbcType=VARCHAR},
+      </if>
+      <if test="withdrawaccount != null" >
+        #{withdrawaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="wcreatdate != null" >
+        #{wcreatdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="withdrawstatus != null" >
+        #{withdrawstatus,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.LeXiang.education.order.common.model.With" >
+    update with
+    <set >
+      <if test="username != null" >
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="withdrawment != null" >
+        withdrawment = #{withdrawment,jdbcType=DOUBLE},
+      </if>
+      <if test="withdrawtype != null" >
+        withdrawtype = #{withdrawtype,jdbcType=BIGINT},
+      </if>
+      <if test="withdrawname != null" >
+        withdrawname = #{withdrawname,jdbcType=VARCHAR},
+      </if>
+      <if test="withdrawaccount != null" >
+        withdrawaccount = #{withdrawaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="wcreatdate != null" >
+        wcreatdate = #{wcreatdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="withdrawstatus != null" >
+        withdrawstatus = #{withdrawstatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    where widthdrawid = #{widthdrawid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.LeXiang.education.order.common.model.With" >
+    update with
+    set username = #{username,jdbcType=VARCHAR},
+      withdrawment = #{withdrawment,jdbcType=DOUBLE},
+      withdrawtype = #{withdrawtype,jdbcType=BIGINT},
+      withdrawname = #{withdrawname,jdbcType=VARCHAR},
+      withdrawaccount = #{withdrawaccount,jdbcType=VARCHAR},
+      wcreatdate = #{wcreatdate,jdbcType=TIMESTAMP},
+      withdrawstatus = #{withdrawstatus,jdbcType=INTEGER}
+    where widthdrawid = #{widthdrawid,jdbcType=BIGINT}
+  </update>-->
+</mapper>

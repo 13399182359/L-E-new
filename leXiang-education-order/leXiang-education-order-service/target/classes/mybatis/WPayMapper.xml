@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.LeXiang.mapper.WPayMapper" >
+  <resultMap id="BaseResultMap" type="com.LeXiang.education.order.common.model.WPay" >
+    <id column="payid" property="payid" jdbcType="BIGINT" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="usertype" property="usertype" jdbcType="VARCHAR" />
+    <result column="payment" property="payment" jdbcType="DOUBLE" />
+    <result column="buytype" property="buytype" jdbcType="BIGINT" />
+    <result column="payremark" property="payremark" jdbcType="VARCHAR" />
+    <result column="paycreatdate" property="paycreatdate" jdbcType="VARCHAR" />
+    <result column="paystatus" property="paystatus" jdbcType="INTEGER" />
+    <result column="paylastdate" property="paylastdate" jdbcType="VARCHAR" />
+    <result column="orderid" property="orderid" jdbcType="BIGINT" />
+    <result column="paytype" property="paytype" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    payid, username, usertype, payment, buytype, payremark, paycreatdate, paystatus, 
+    paylastdate, orderid, paytype
+  </sql>
+
+  <sql id="sql">
+    <where>
+      <if test="wpay!=null">
+        <if test="wpay.username!=null and wpay.username!=''">
+          and username like "%"#{wpay.username}"%"
+        </if>
+        <if test="wpay.paycreatdate!=null and wpay.paycreatdate!=''">
+          and paycreatdate &gt;= #{wpay.paycreatdate}
+        </if>
+        <if test="wpay.paylastdate!=null and wpay.paylastdate!=''">
+          and paylastdate &lt;= #{wpay.paylastdate}
+        </if>
+      </if>
+    </where>
+  </sql>
+
+  <!--返回总记录数目-->
+  <select id="getCount" resultType="int">
+        SELECT COUNT(*) FROM w_pay
+        <include refid="sql"></include>
+    </select>
+
+
+  <select id="queryPay" resultMap="BaseResultMap"  >
+    select * from w_pay 
+    <include refid="sql"></include>
+    limit #{start},#{rows}
+  </select>
+
+  <!--<select id="selectByExample" resultMap="BaseResultMap" parameterType="com.LeXiang.education.order.common.model.WPayExample" >
+    select
+    *
+    <include refid="Base_Column_List" />
+    from w_pay
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    LIMIT #{start},#{rows}
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from w_pay
+    where payid = #{payid,jdbcType=BIGINT}
+  </select>-->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from w_pay
+    where payid = #{payid,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.LeXiang.education.order.common.model.WPayExample" >
+    delete from w_pay
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.LeXiang.education.order.common.model.WPay" >
+    insert into w_pay (payid, username, usertype, 
+      payment, buytype, payremark, 
+      paycreatdate, paystatus, paylastdate, 
+      orderid, paytype)
+    values (#{payid,jdbcType=BIGINT}, #{username,jdbcType=VARCHAR}, #{usertype,jdbcType=VARCHAR}, 
+      #{payment,jdbcType=DOUBLE}, #{buytype,jdbcType=BIGINT}, #{payremark,jdbcType=VARCHAR}, 
+      #{paycreatdate,jdbcType=TIMESTAMP}, #{paystatus,jdbcType=INTEGER}, #{paylastdate,jdbcType=TIMESTAMP}, 
+      #{orderid,jdbcType=BIGINT}, #{paytype,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.LeXiang.education.order.common.model.WPay" >
+    insert into w_pay
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="payid != null" >
+        payid,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
+      <if test="usertype != null" >
+        usertype,
+      </if>
+      <if test="payment != null" >
+        payment,
+      </if>
+      <if test="buytype != null" >
+        buytype,
+      </if>
+      <if test="payremark != null" >
+        payremark,
+      </if>
+      <if test="paycreatdate != null" >
+        paycreatdate,
+      </if>
+      <if test="paystatus != null" >
+        paystatus,
+      </if>
+      <if test="paylastdate != null" >
+        paylastdate,
+      </if>
+      <if test="orderid != null" >
+        orderid,
+      </if>
+      <if test="paytype != null" >
+        paytype,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="payid != null" >
+        #{payid,jdbcType=BIGINT},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="usertype != null" >
+        #{usertype,jdbcType=VARCHAR},
+      </if>
+      <if test="payment != null" >
+        #{payment,jdbcType=DOUBLE},
+      </if>
+      <if test="buytype != null" >
+        #{buytype,jdbcType=BIGINT},
+      </if>
+      <if test="payremark != null" >
+        #{payremark,jdbcType=VARCHAR},
+      </if>
+      <if test="paycreatdate != null" >
+        #{paycreatdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="paystatus != null" >
+        #{paystatus,jdbcType=INTEGER},
+      </if>
+      <if test="paylastdate != null" >
+        #{paylastdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderid != null" >
+        #{orderid,jdbcType=BIGINT},
+      </if>
+      <if test="paytype != null" >
+        #{paytype,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.LeXiang.education.order.common.model.WPayExample" resultType="java.lang.Integer" >
+    select count(*) from w_pay
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update w_pay
+    <set >
+      <if test="record.payid != null" >
+        payid = #{record.payid,jdbcType=BIGINT},
+      </if>
+      <if test="record.username != null" >
+        username = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.usertype != null" >
+        usertype = #{record.usertype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payment != null" >
+        payment = #{record.payment,jdbcType=DOUBLE},
+      </if>
+      <if test="record.buytype != null" >
+        buytype = #{record.buytype,jdbcType=BIGINT},
+      </if>
+      <if test="record.payremark != null" >
+        payremark = #{record.payremark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.paycreatdate != null" >
+        paycreatdate = #{record.paycreatdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.paystatus != null" >
+        paystatus = #{record.paystatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.paylastdate != null" >
+        paylastdate = #{record.paylastdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.orderid != null" >
+        orderid = #{record.orderid,jdbcType=BIGINT},
+      </if>
+      <if test="record.paytype != null" >
+        paytype = #{record.paytype,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update w_pay
+    set payid = #{record.payid,jdbcType=BIGINT},
+      username = #{record.username,jdbcType=VARCHAR},
+      usertype = #{record.usertype,jdbcType=VARCHAR},
+      payment = #{record.payment,jdbcType=DOUBLE},
+      buytype = #{record.buytype,jdbcType=BIGINT},
+      payremark = #{record.payremark,jdbcType=VARCHAR},
+      paycreatdate = #{record.paycreatdate,jdbcType=TIMESTAMP},
+      paystatus = #{record.paystatus,jdbcType=INTEGER},
+      paylastdate = #{record.paylastdate,jdbcType=TIMESTAMP},
+      orderid = #{record.orderid,jdbcType=BIGINT},
+      paytype = #{record.paytype,jdbcType=BIGINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.LeXiang.education.order.common.model.WPay" >
+    update w_pay
+    <set >
+      <if test="username != null" >
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="usertype != null" >
+        usertype = #{usertype,jdbcType=VARCHAR},
+      </if>
+      <if test="payment != null" >
+        payment = #{payment,jdbcType=DOUBLE},
+      </if>
+      <if test="buytype != null" >
+        buytype = #{buytype,jdbcType=BIGINT},
+      </if>
+      <if test="payremark != null" >
+        payremark = #{payremark,jdbcType=VARCHAR},
+      </if>
+      <if test="paycreatdate != null" >
+        paycreatdate = #{paycreatdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="paystatus != null" >
+        paystatus = #{paystatus,jdbcType=INTEGER},
+      </if>
+      <if test="paylastdate != null" >
+        paylastdate = #{paylastdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderid != null" >
+        orderid = #{orderid,jdbcType=BIGINT},
+      </if>
+      <if test="paytype != null" >
+        paytype = #{paytype,jdbcType=BIGINT},
+      </if>
+    </set>
+    where payid = #{payid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.LeXiang.education.order.common.model.WPay" >
+    update w_pay
+    set username = #{username,jdbcType=VARCHAR},
+      usertype = #{usertype,jdbcType=VARCHAR},
+      payment = #{payment,jdbcType=DOUBLE},
+      buytype = #{buytype,jdbcType=BIGINT},
+      payremark = #{payremark,jdbcType=VARCHAR},
+      paycreatdate = #{paycreatdate,jdbcType=TIMESTAMP},
+      paystatus = #{paystatus,jdbcType=INTEGER},
+      paylastdate = #{paylastdate,jdbcType=TIMESTAMP},
+      orderid = #{orderid,jdbcType=BIGINT},
+      paytype = #{paytype,jdbcType=BIGINT}
+    where payid = #{payid,jdbcType=BIGINT}
+  </update>
+</mapper>

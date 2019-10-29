@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.LeXiang.mapper.UserbMapper" >
+  <resultMap id="BaseResultMap" type="com.LeXiang.education.order.common.model.Userb" >
+    <id column="userid" property="userid" jdbcType="BIGINT" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="realname" property="realname" jdbcType="VARCHAR" />
+    <result column="idnumbers" property="idnumbers" jdbcType="BIGINT" />
+    <result column="userrights" property="userrights" jdbcType="VARCHAR" />
+    <result column="userbalance" property="userbalance" jdbcType="REAL" />
+    <result column="freezebalance" property="freezebalance" jdbcType="REAL" />
+    <result column="viptype" property="viptype" jdbcType="REAL" />
+    <result column="viplastdate" property="viplastdate" jdbcType="DATE" />
+    <result column="availableincome" property="availableincome" jdbcType="REAL" />
+    <result column="freezeincome" property="freezeincome" jdbcType="REAL" />
+    <result column="playname" property="playname" jdbcType="VARCHAR" />
+    <result column="buymoney" property="buymoney" jdbcType="REAL" />
+    <result column="platformintu" property="platformintu" jdbcType="REAL" />
+    <result column="teachermoney" property="teachermoney" jdbcType="REAL" />
+    <result column="sharerintu" property="sharerintu" jdbcType="REAL" />
+    <result column="distributions" property="distributions" jdbcType="VARCHAR" />
+    <result column="divcreadate" property="divcreadate" jdbcType="DATE" />
+    <result column="divlastdate" property="divlastdate" jdbcType="DATE" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="useruid" property="useruid" jdbcType="BIGINT" />
+    <result column="integrals" property="integrals" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    userid, username, realname, idnumbers, userrights, userbalance, freezebalance, viptype, 
+    viplastdate, availableincome, freezeincome, playname, buymoney, platformintu, teachermoney, 
+    sharerintu, distributions, divcreadate, divlastdate, remark, useruid, integrals
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from userb
+    where userid = #{userid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from userb
+    where userid = #{userid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.LeXiang.education.order.common.model.Userb" >
+    insert into userb (userid, username, realname, 
+      idnumbers, userrights, userbalance, 
+      freezebalance, viptype, viplastdate, 
+      availableincome, freezeincome, playname, 
+      buymoney, platformintu, teachermoney, 
+      sharerintu, distributions, divcreadate, 
+      divlastdate, remark, useruid, 
+      integrals)
+    values (#{userid,jdbcType=BIGINT}, #{username,jdbcType=VARCHAR}, #{realname,jdbcType=VARCHAR}, 
+      #{idnumbers,jdbcType=BIGINT}, #{userrights,jdbcType=VARCHAR}, #{userbalance,jdbcType=REAL}, 
+      #{freezebalance,jdbcType=REAL}, #{viptype,jdbcType=REAL}, #{viplastdate,jdbcType=DATE}, 
+      #{availableincome,jdbcType=REAL}, #{freezeincome,jdbcType=REAL}, #{playname,jdbcType=VARCHAR}, 
+      #{buymoney,jdbcType=REAL}, #{platformintu,jdbcType=REAL}, #{teachermoney,jdbcType=REAL}, 
+      #{sharerintu,jdbcType=REAL}, #{distributions,jdbcType=VARCHAR}, #{divcreadate,jdbcType=DATE}, 
+      #{divlastdate,jdbcType=DATE}, #{remark,jdbcType=VARCHAR}, #{useruid,jdbcType=BIGINT}, 
+      #{integrals,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.LeXiang.education.order.common.model.Userb" >
+    insert into userb
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userid != null" >
+        userid,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
+      <if test="realname != null" >
+        realname,
+      </if>
+      <if test="idnumbers != null" >
+        idnumbers,
+      </if>
+      <if test="userrights != null" >
+        userrights,
+      </if>
+      <if test="userbalance != null" >
+        userbalance,
+      </if>
+      <if test="freezebalance != null" >
+        freezebalance,
+      </if>
+      <if test="viptype != null" >
+        viptype,
+      </if>
+      <if test="viplastdate != null" >
+        viplastdate,
+      </if>
+      <if test="availableincome != null" >
+        availableincome,
+      </if>
+      <if test="freezeincome != null" >
+        freezeincome,
+      </if>
+      <if test="playname != null" >
+        playname,
+      </if>
+      <if test="buymoney != null" >
+        buymoney,
+      </if>
+      <if test="platformintu != null" >
+        platformintu,
+      </if>
+      <if test="teachermoney != null" >
+        teachermoney,
+      </if>
+      <if test="sharerintu != null" >
+        sharerintu,
+      </if>
+      <if test="distributions != null" >
+        distributions,
+      </if>
+      <if test="divcreadate != null" >
+        divcreadate,
+      </if>
+      <if test="divlastdate != null" >
+        divlastdate,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="useruid != null" >
+        useruid,
+      </if>
+      <if test="integrals != null" >
+        integrals,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userid != null" >
+        #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="realname != null" >
+        #{realname,jdbcType=VARCHAR},
+      </if>
+      <if test="idnumbers != null" >
+        #{idnumbers,jdbcType=BIGINT},
+      </if>
+      <if test="userrights != null" >
+        #{userrights,jdbcType=VARCHAR},
+      </if>
+      <if test="userbalance != null" >
+        #{userbalance,jdbcType=REAL},
+      </if>
+      <if test="freezebalance != null" >
+        #{freezebalance,jdbcType=REAL},
+      </if>
+      <if test="viptype != null" >
+        #{viptype,jdbcType=REAL},
+      </if>
+      <if test="viplastdate != null" >
+        #{viplastdate,jdbcType=DATE},
+      </if>
+      <if test="availableincome != null" >
+        #{availableincome,jdbcType=REAL},
+      </if>
+      <if test="freezeincome != null" >
+        #{freezeincome,jdbcType=REAL},
+      </if>
+      <if test="playname != null" >
+        #{playname,jdbcType=VARCHAR},
+      </if>
+      <if test="buymoney != null" >
+        #{buymoney,jdbcType=REAL},
+      </if>
+      <if test="platformintu != null" >
+        #{platformintu,jdbcType=REAL},
+      </if>
+      <if test="teachermoney != null" >
+        #{teachermoney,jdbcType=REAL},
+      </if>
+      <if test="sharerintu != null" >
+        #{sharerintu,jdbcType=REAL},
+      </if>
+      <if test="distributions != null" >
+        #{distributions,jdbcType=VARCHAR},
+      </if>
+      <if test="divcreadate != null" >
+        #{divcreadate,jdbcType=DATE},
+      </if>
+      <if test="divlastdate != null" >
+        #{divlastdate,jdbcType=DATE},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="useruid != null" >
+        #{useruid,jdbcType=BIGINT},
+      </if>
+      <if test="integrals != null" >
+        #{integrals,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.LeXiang.education.order.common.model.Userb" >
+    update userb
+    <set >
+      <if test="username != null" >
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="realname != null" >
+        realname = #{realname,jdbcType=VARCHAR},
+      </if>
+      <if test="idnumbers != null" >
+        idnumbers = #{idnumbers,jdbcType=BIGINT},
+      </if>
+      <if test="userrights != null" >
+        userrights = #{userrights,jdbcType=VARCHAR},
+      </if>
+      <if test="userbalance != null" >
+        userbalance = #{userbalance,jdbcType=REAL},
+      </if>
+      <if test="freezebalance != null" >
+        freezebalance = #{freezebalance,jdbcType=REAL},
+      </if>
+      <if test="viptype != null" >
+        viptype = #{viptype,jdbcType=REAL},
+      </if>
+      <if test="viplastdate != null" >
+        viplastdate = #{viplastdate,jdbcType=DATE},
+      </if>
+      <if test="availableincome != null" >
+        availableincome = #{availableincome,jdbcType=REAL},
+      </if>
+      <if test="freezeincome != null" >
+        freezeincome = #{freezeincome,jdbcType=REAL},
+      </if>
+      <if test="playname != null" >
+        playname = #{playname,jdbcType=VARCHAR},
+      </if>
+      <if test="buymoney != null" >
+        buymoney = #{buymoney,jdbcType=REAL},
+      </if>
+      <if test="platformintu != null" >
+        platformintu = #{platformintu,jdbcType=REAL},
+      </if>
+      <if test="teachermoney != null" >
+        teachermoney = #{teachermoney,jdbcType=REAL},
+      </if>
+      <if test="sharerintu != null" >
+        sharerintu = #{sharerintu,jdbcType=REAL},
+      </if>
+      <if test="distributions != null" >
+        distributions = #{distributions,jdbcType=VARCHAR},
+      </if>
+      <if test="divcreadate != null" >
+        divcreadate = #{divcreadate,jdbcType=DATE},
+      </if>
+      <if test="divlastdate != null" >
+        divlastdate = #{divlastdate,jdbcType=DATE},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="useruid != null" >
+        useruid = #{useruid,jdbcType=BIGINT},
+      </if>
+      <if test="integrals != null" >
+        integrals = #{integrals,jdbcType=BIGINT},
+      </if>
+    </set>
+    where userid = #{userid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.LeXiang.education.order.common.model.Userb" >
+    update userb
+    set username = #{username,jdbcType=VARCHAR},
+      realname = #{realname,jdbcType=VARCHAR},
+      idnumbers = #{idnumbers,jdbcType=BIGINT},
+      userrights = #{userrights,jdbcType=VARCHAR},
+      userbalance = #{userbalance,jdbcType=REAL},
+      freezebalance = #{freezebalance,jdbcType=REAL},
+      viptype = #{viptype,jdbcType=REAL},
+      viplastdate = #{viplastdate,jdbcType=DATE},
+      availableincome = #{availableincome,jdbcType=REAL},
+      freezeincome = #{freezeincome,jdbcType=REAL},
+      playname = #{playname,jdbcType=VARCHAR},
+      buymoney = #{buymoney,jdbcType=REAL},
+      platformintu = #{platformintu,jdbcType=REAL},
+      teachermoney = #{teachermoney,jdbcType=REAL},
+      sharerintu = #{sharerintu,jdbcType=REAL},
+      distributions = #{distributions,jdbcType=VARCHAR},
+      divcreadate = #{divcreadate,jdbcType=DATE},
+      divlastdate = #{divlastdate,jdbcType=DATE},
+      remark = #{remark,jdbcType=VARCHAR},
+      useruid = #{useruid,jdbcType=BIGINT},
+      integrals = #{integrals,jdbcType=BIGINT}
+    where userid = #{userid,jdbcType=BIGINT}
+  </update>
+</mapper>

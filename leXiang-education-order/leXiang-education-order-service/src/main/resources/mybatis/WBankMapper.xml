@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.LeXiang.mapper.WBankMapper" >
+  <resultMap id="BaseResultMap" type="com.LeXiang.education.order.common.model.WBank" >
+    <id column="bankid" property="bankid" jdbcType="BIGINT" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="bankname" property="bankname" jdbcType="VARCHAR" />
+    <result column="openbank" property="openbank" jdbcType="VARCHAR" />
+    <result column="bankaccount" property="bankaccount" jdbcType="BIGINT" />
+    <result column="bankareaid" property="bankareaid" jdbcType="BIGINT" />
+    <result column="banksite" property="banksite" jdbcType="VARCHAR" />
+    <result column="bankphone" property="bankphone" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    bankid, username, bankname, openbank, bankaccount, bankareaid, banksite, bankphone
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.LeXiang.education.order.common.model.WBankExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from w_bank
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from w_bank
+    where bankid = #{bankid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from w_bank
+    where bankid = #{bankid,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.LeXiang.education.order.common.model.WBankExample" >
+    delete from w_bank
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.LeXiang.education.order.common.model.WBank" >
+    insert into w_bank (bankid, username, bankname, 
+      openbank, bankaccount, bankareaid, 
+      banksite, bankphone)
+    values (#{bankid,jdbcType=BIGINT}, #{username,jdbcType=VARCHAR}, #{bankname,jdbcType=VARCHAR}, 
+      #{openbank,jdbcType=VARCHAR}, #{bankaccount,jdbcType=BIGINT}, #{bankareaid,jdbcType=BIGINT}, 
+      #{banksite,jdbcType=VARCHAR}, #{bankphone,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.LeXiang.education.order.common.model.WBank" >
+    insert into w_bank
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="bankid != null" >
+        bankid,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
+      <if test="bankname != null" >
+        bankname,
+      </if>
+      <if test="openbank != null" >
+        openbank,
+      </if>
+      <if test="bankaccount != null" >
+        bankaccount,
+      </if>
+      <if test="bankareaid != null" >
+        bankareaid,
+      </if>
+      <if test="banksite != null" >
+        banksite,
+      </if>
+      <if test="bankphone != null" >
+        bankphone,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="bankid != null" >
+        #{bankid,jdbcType=BIGINT},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="bankname != null" >
+        #{bankname,jdbcType=VARCHAR},
+      </if>
+      <if test="openbank != null" >
+        #{openbank,jdbcType=VARCHAR},
+      </if>
+      <if test="bankaccount != null" >
+        #{bankaccount,jdbcType=BIGINT},
+      </if>
+      <if test="bankareaid != null" >
+        #{bankareaid,jdbcType=BIGINT},
+      </if>
+      <if test="banksite != null" >
+        #{banksite,jdbcType=VARCHAR},
+      </if>
+      <if test="bankphone != null" >
+        #{bankphone,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.LeXiang.education.order.common.model.WBankExample" resultType="java.lang.Integer" >
+    select count(*) from w_bank
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update w_bank
+    <set >
+      <if test="record.bankid != null" >
+        bankid = #{record.bankid,jdbcType=BIGINT},
+      </if>
+      <if test="record.username != null" >
+        username = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bankname != null" >
+        bankname = #{record.bankname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.openbank != null" >
+        openbank = #{record.openbank,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bankaccount != null" >
+        bankaccount = #{record.bankaccount,jdbcType=BIGINT},
+      </if>
+      <if test="record.bankareaid != null" >
+        bankareaid = #{record.bankareaid,jdbcType=BIGINT},
+      </if>
+      <if test="record.banksite != null" >
+        banksite = #{record.banksite,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bankphone != null" >
+        bankphone = #{record.bankphone,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update w_bank
+    set bankid = #{record.bankid,jdbcType=BIGINT},
+      username = #{record.username,jdbcType=VARCHAR},
+      bankname = #{record.bankname,jdbcType=VARCHAR},
+      openbank = #{record.openbank,jdbcType=VARCHAR},
+      bankaccount = #{record.bankaccount,jdbcType=BIGINT},
+      bankareaid = #{record.bankareaid,jdbcType=BIGINT},
+      banksite = #{record.banksite,jdbcType=VARCHAR},
+      bankphone = #{record.bankphone,jdbcType=BIGINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.LeXiang.education.order.common.model.WBank" >
+    update w_bank
+    <set >
+      <if test="username != null" >
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="bankname != null" >
+        bankname = #{bankname,jdbcType=VARCHAR},
+      </if>
+      <if test="openbank != null" >
+        openbank = #{openbank,jdbcType=VARCHAR},
+      </if>
+      <if test="bankaccount != null" >
+        bankaccount = #{bankaccount,jdbcType=BIGINT},
+      </if>
+      <if test="bankareaid != null" >
+        bankareaid = #{bankareaid,jdbcType=BIGINT},
+      </if>
+      <if test="banksite != null" >
+        banksite = #{banksite,jdbcType=VARCHAR},
+      </if>
+      <if test="bankphone != null" >
+        bankphone = #{bankphone,jdbcType=BIGINT},
+      </if>
+    </set>
+    where bankid = #{bankid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.LeXiang.education.order.common.model.WBank" >
+    update w_bank
+    set username = #{username,jdbcType=VARCHAR},
+      bankname = #{bankname,jdbcType=VARCHAR},
+      openbank = #{openbank,jdbcType=VARCHAR},
+      bankaccount = #{bankaccount,jdbcType=BIGINT},
+      bankareaid = #{bankareaid,jdbcType=BIGINT},
+      banksite = #{banksite,jdbcType=VARCHAR},
+      bankphone = #{bankphone,jdbcType=BIGINT}
+    where bankid = #{bankid,jdbcType=BIGINT}
+  </update>
+</mapper>
