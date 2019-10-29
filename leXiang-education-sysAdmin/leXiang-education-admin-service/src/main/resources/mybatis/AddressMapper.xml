@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jk.mapper.AddressMapper" >
+    <sql id="sql">
+        <where>
+            <if test="ress!=null">
+                <if test="ress.uid != null">
+                    uid = #{ress.uid}
+                </if>
+                <if test="ress.uname != null and ress.uname != ''">
+                    uname like "%"#{ress.uname}"%"
+                </if>
+                <if test="ress.phone != null and ress.phone != ''">
+                    phone = #{ress.phone}
+                </if>
+            </if>
+        </where>
+    </sql>
+    <select id="findAllAddressCount" resultType="java.lang.Integer">
+        select count(1) from z_shipping_address
+        <include refid="sql"></include>
+    </select>
+    <select id="findAllAddress" resultType="com.LeXiang.education.sysAdmin.common.model.AddressBean">
+        select * from z_shipping_address
+        <include refid="sql"></include>
+         limit #{a} ,#{b}
+    </select>
+    <update id="updateS1">
+        update z_shipping_address set s1 = #{s1} where id = #{id};
+    </update>
+    <delete id="delAddress" parameterType="Long[]">
+        delete from z_shipping_address where id in
+        <foreach collection="array" separator="," close=")" open="(" index="index" item="idd">
+            #{idd}
+        </foreach>
+    </delete>
+    <select id="selectUserJifen" parameterType="java.lang.Long" resultType="java.lang.Long">
+        select Integral from user where id = #{id};
+    </select>
+    <select id="poiDown" parameterType="Long[]" resultType="com.LeXiang.education.sysAdmin.common.model.AddressBean">
+        select * from z_shipping_address where id in
+        <foreach collection="array" item="idd" index="index" open="(" close=")" separator=",">
+            #{idd}
+        </foreach>
+    </select>
+    <select id="addressMapper" parameterType="java.lang.Long" resultType="com.LeXiang.education.sysAdmin.common.model.AddressBean">
+        select * from z_shipping_address where uid  = #{uid} and status = 9
+    </select>
+    <insert id="addOrder" parameterType="com.LeXiang.education.sysAdmin.common.model.OrderBean">
+        insert into  z_order
+       (id,uid,uname,cid,cname,price,countedd,freight,price_money,shipping_address_id,createddate,way,uimg,cimg,status,ordernumber)
+        values (#{orderBean.id},#{orderBean.uid},#{orderBean.uname},#{orderBean.cid},#{orderBean.cname},#{orderBean.price},#{orderBean.countedd},#{orderBean.freight},#{orderBean.price_money},#{orderBean.shipping_address_id},#{orderBean.createddate},#{orderBean.way},#{orderBean.uimg},#{orderBean.cimg},#{orderBean.status},#{orderBean.ordernumber})
+    </insert>
+    <update id="updateUserJifen" >
+        update user set Integral = Integral-#{price} where id = #{uid}
+    </update>
+    <update id="updateCommondityRepertory">
+        update z_commodity set repertory = repertory - #{count} where id = #{id};
+    </update>
+    <insert id="addCommondityShow" parameterType="com.LeXiang.education.sysAdmin.common.model.CommondityShowBean">
+        insert into z_commondity_show
+        values (#{id},#{uid},#{uname},#{count},#{cid},#{createddate},#{uimg});
+    </insert>
+</mapper>

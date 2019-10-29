@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jk.mapper.OrderMapper" >
+   <select id="addOrder" parameterType="com.LeXiang.education.sysAdmin.common.model.OrderBean">
+       insert into z_order
+       values (#{id},#{uid},#{uname},#{cid},#{cname},#{price},#{count},#{freight},#{price_money},#{shipping_address_id},#{createddate},#{way},#{uimg},#{cimg},#{status},#{ordernumber})
+   </select>
+    <select id="findOrderByMent" parameterType="com.LeXiang.education.sysAdmin.common.model.ResultBean" resultType="com.LeXiang.education.sysAdmin.common.model.OrderBean">
+        select * from z_order where cid = #{cid} and uid = #{uid} order by createddate desc ;
+    </select>
+    <update id="updateOrderStatus5" parameterType="java.lang.Long">
+        update z_order set status = 5 where id = #{comid};
+    </update>
+    <sql id="sql">
+        <where>
+            <if test="orderBean != null">
+                <if test="orderBean.id != null">
+                    id  = #{orderBean.id}
+                </if>
+                <if test="orderBean.uname != null and orderBean.uname != ''">
+                    uname  like  "%"#{orderBean.uname}"%"
+                </if>
+                <if test="orderBean.cid != null">
+                    cid = #{orderBean.cid}
+                </if>
+                <if test="orderBean.price != null">
+                    price &gt;= #{orderBean.price}
+                </if>
+                <if test="orderBean.priceEnd != null">
+                    price &lt;= #{orderBean.priceEnd}
+                </if>
+                <if test="orderBean.freight != null">
+                    freight &gt;= #{orderBean.freight}
+                </if>
+                <if test="orderBean.freightEnd != null">
+                    freight &lt;= #{orderBean.freightEnd}
+                </if>
+                <if test="orderBean.createddate != null">
+                    createddate &gt;= #{orderBean.createddateEnd}
+                </if>
+                <if test="orderBean.createddateEnd != null">
+                    createddate &lt;= #{orderBean.createddateEnd}
+                </if>
+            </if>
+        </where>
+    </sql>
+    <select id="findAllOrderCount">
+        select count(1) from z_order
+        <include refid="sql"></include>
+    </select>
+    <select id="findAllOrder">
+        select z.*,z1.sitename from z_order z left join z_shipping_address z1 on z.shipping_address_id = z1.id
+        <include refid="sql"></include>
+        limit #{a},#{b}
+    </select>
+</mapper>

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd"><mapper namespace="com.jk.mapper.CommodityMapper" >
+    <sql id="sql">
+        <where>
+            <if test="commondity!=null">
+                <if test="commondity.id!=null">
+                    and id = #{commondity.id}
+                </if>
+                <if test="commondity.name != null and commondity.name != ''">
+                    and name like "%"#{commondity.name}"%"
+                </if>
+                <if test="commondity.priceEnd != null">
+                    and price &lt;= #{commondity.priceEnd}
+                </if>
+                <if test="commondity.price != null">
+                    and price &gt;= #{commondity.price}
+                </if>
+                <if test="commondity.repertoryEnd != null">
+                    and repertory &lt;= #{commondity.repertoryEnd}
+                </if>
+                <if test="commondity.repertory != null">
+                    and repertory &gt;= #{commondity.repertory}
+                </if>
+                <if test="commondity.freightEnd != null">
+                    and freight &lt;= #{commondity.freightEnd}
+                </if>
+                <if test="commondity.freight != null">
+                    and freight &gt;= #{commondity.freight}
+                </if>
+                <if test="commondity.createddateEnd != null and commondity.createddateEnd != ''">
+                    and createddate &lt;= #{commondity.createddateEnd}
+                </if>
+                <if test="commondity.createddate != null and commondity.createddate != ''">
+                    and createddate &gt;= #{commondity.createddate}
+                </if>
+                <if test="commondity.status != null and commondity.status != -1">
+                    and status = #{commondity.status}
+                </if>
+            </if>
+        </where>
+    </sql>
+    <insert id="addCommontidy" parameterType="com.LeXiang.education.sysAdmin.common.model.CommodityBean">
+        insert into z_commodity values (#{id},#{name},#{img},#{price},#{repertory},#{status},#{freight},#{createddate},#{type},#{quintessence},#{info},#{describe});
+    </insert>
+    <update id="updateCommontidy" parameterType="com.LeXiang.education.sysAdmin.common.model.CommodityBean">
+        update z_commodity set name = #{name},img = #{img},price = #{price},repertory = #{repertory},status = #{status},
+        freight = #{freight},type = #{type},quintessence = #{quintessence},info = #{info},describe = #{describe}
+        where id = #{id}
+    </update>
+    <select id="findById" parameterType="java.lang.Long" resultType="com.LeXiang.education.sysAdmin.common.model.CommodityBean">
+        select * from z_commodity where id = #{id}
+    </select>
+    <update id="updateStatus">
+        update z_commodity set status = #{m.where} where id in
+        <foreach collection="m.ids" item="idd" index="index" open="(" close=")" separator=",">
+            #{idd}
+        </foreach>
+    </update>
+    <delete id="deleteCommondity" parameterType="Long[]">
+        delete from z_commodity where id in
+        <foreach collection="array" item="idd" index="index" open="(" close=")" separator=",">
+            #{idd}
+        </foreach>
+    </delete>
+    <select id="commondityShowCount" resultType="java.lang.Long" parameterType="java.lang.Long">
+        SELECT count(t) from
+        (select DISTINCT uid t
+        from  z_commondity_show  where cid = #{id}) as  ts
+    </select>
+    <select id="findAll" resultType="com.LeXiang.education.sysAdmin.common.model.CommodityBean">
+        select * from z_commodity
+        <include refid="sql"></include>
+        limit #{a},#{b}
+    </select>
+    <select id="findCount" resultType="java.lang.Integer">
+        select count(id) from z_commodity
+        <include refid="sql"></include>
+    </select>
+    <select id="findAllCommondityShow" parameterType="java.lang.Long" resultType="com.LeXiang.education.sysAdmin.common.model.CommondityShowBean">
+        select * from z_commondity_show where cid = #{id}
+    </select>
+    <select id="findAllArea" resultType="com.LeXiang.education.sysAdmin.common.model.AreaBean">
+        select * from z_area where pid = #{id};
+    </select>
+    <insert id="addAddressUser" parameterType="com.LeXiang.education.sysAdmin.common.model.AddressBean" useGeneratedKeys="true" keyProperty="id">
+        insert into z_shipping_address
+        values (#{id},#{uid},#{areaid},#{sitename},#{uname},#{phone},#{status},#{s1});
+    </insert>
+    <update id="updateAddressUser" parameterType="com.LeXiang.education.sysAdmin.common.model.AddressBean">
+        UPDATE z_shipping_address set status = 1 where id != #{id}
+    </update>
+    <select id="findAllAddress" resultType="com.LeXiang.education.sysAdmin.common.model.AddressBean">
+        select * from z_shipping_address where uid = #{id} order by status desc ;
+    </select>
+    <select id="findOneArea" resultType="com.LeXiang.education.sysAdmin.common.model.AreaBean">
+        select * from z_area where id = #{id};
+    </select>
+    <select id="wuliu" resultType="com.LeXiang.education.sysAdmin.common.model.LogisticsBean">
+        select * from z_logistics where id = 1;
+    </select>
+    <update id="updateLog" parameterType="com.LeXiang.education.sysAdmin.common.model.LogisticsBean">
+        update z_logistics  t set t.company_id = #{company_id} , t.key = #{key} where id = #{id}
+    </update>
+</mapper>
