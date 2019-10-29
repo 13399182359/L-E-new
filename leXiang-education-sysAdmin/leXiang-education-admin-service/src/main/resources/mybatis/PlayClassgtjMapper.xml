@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jk.mapper.PlayClassgtjMapper" >
+  <resultMap id="BaseResultMap" type="com.LeXiang.education.sysAdmin.common.model.PlayClassgtj" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="playname" property="playname" jdbcType="VARCHAR" />
+    <result column="img" property="img" jdbcType="VARCHAR" />
+    <result column="bazaarprice" property="bazaarprice" jdbcType="BIGINT" />
+    <result column="price" property="price" jdbcType="BIGINT" />
+    <result column="userid" property="userid" jdbcType="BIGINT" />
+    <result column="teacherid" property="teacherid" jdbcType="BIGINT" />
+    <result column="grade" property="grade" jdbcType="BIGINT" />
+    <result column="studentcount" property="studentcount" jdbcType="BIGINT" />
+    <result column="marketingcount" property="marketingcount" jdbcType="BIGINT" />
+    <result column="isfree" property="isfree" jdbcType="BIGINT" />
+    <result column="ischoiceness" property="ischoiceness" jdbcType="BIGINT" />
+    <result column="uponedate" property="uponedate" jdbcType="DATE" />
+    <result column="downdate" property="downdate" jdbcType="DATE" />
+    <result column="playtypeid" property="playtypeid" jdbcType="BIGINT" />
+    <result column="organizationid" property="organizationid" jdbcType="BIGINT" />
+    <result column="intro" property="intro" jdbcType="VARCHAR" />
+    <result column="validity" property="validity" jdbcType="BIGINT" />
+    <result column="isvip" property="isvip" jdbcType="BIGINT" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="orderone" property="orderone" jdbcType="BIGINT" />
+    <result column="studymoshi" property="studymoshi" jdbcType="BIGINT" />
+    <result column="displayposition" property="displayposition" jdbcType="BIGINT" />
+    <result column="ismarketing" property="ismarketing" jdbcType="BIGINT" />
+    <result column="status" property="status" jdbcType="BIGINT" />
+    <result column="isdisabled" property="isdisabled" jdbcType="BIGINT" />
+    <result column="teachermoney" property="teachermoney" jdbcType="DOUBLE" />
+    <result column="organizationmoney" property="organizationmoney" jdbcType="DOUBLE" />
+    <result column="isputaway" property="isputaway" jdbcType="BIGINT" />
+    <result column="leixing" property="leixing" jdbcType="BIGINT" />
+
+  </resultMap>
+
+  <sql id="sql">
+      <if test="playClassgtj!=null">
+        <if test="playClassgtj.id!=null">
+          and id = #{playClassgtj.id}
+        </if>
+        <if test="playClassgtj.playname != null and playClassgtj.playname != ''">
+          and playname like "%"#{playClassgtj.playname}"%"
+        </if>
+        <if test="playClassgtj.userid != null">
+          and userid = #{playClassgtj.userid}
+        </if>
+        <if test="playClassgtj.teacherid != null">
+          and teacherid = #{playClassgtj.teacherid}
+        </if>
+        <if test="playClassgtj.isfree != null">
+          and isfree = #{playClassgtj.isfree}
+        </if>
+        <if test="playClassgtj.ischoiceness != null">
+          and ischoiceness = #{playClassgtj.ischoiceness}
+        </if>
+        <if test="playClassgtj.uponedateEnd != null and playClassgtj.uponedateEnd != ''">
+          and uponedate &lt;= #{playClassgtj.uponedateEnd}
+        </if>
+        <if test="playClassgtj.uponedate != null and playClassgtj.uponedate != ''">
+          and uponedate &gt;= #{playClassgtj.uponedate}
+        </if>
+        <if test="playClassgtj.downdateEnd != null and playClassgtj.downdateEnd != ''">
+          and downdate &lt;= #{playClassgtj.downdateEnd}
+        </if>
+        <if test="playClassgtj.downdate != null and playClassgtj.downdate != ''">
+          and downdate &gt;= #{playClassgtj.downdate}
+        </if>
+      </if>
+  </sql>
+
+  <select id="findplay" resultType="com.LeXiang.education.sysAdmin.common.model.PlayClassgtj">
+   select * from playclass
+    <include refid="sql"></include>
+    limit #{start},#{rows}
+  </select>
+  <select id="getCount" resultType="java.lang.Integer">
+    select count(*) from playclass where 1=1
+    <include refid="sql"></include>
+    and status = 0 and isdisabled = 1
+  </select>
+
+  <select id="getCount1" resultType="java.lang.Integer">
+    select count(*) from playclass where 1=1
+    <include refid="sql"></include>
+    and status = 1 and isdisabled = 1
+  </select>
+
+  <select id="getCount2" resultType="java.lang.Integer">
+    select count(*) from playclass where 1=1
+    <include refid="sql"></include>
+    and isdisabled = 0
+  </select>
+
+  <select id="findall"  resultType="com.LeXiang.education.sysAdmin.common.model.PlayClassgtj">
+  select * from playclass
+  </select>
+
+  <select id="findchecked"  resultType="com.LeXiang.education.sysAdmin.common.model.PlayClassgtj">
+   select * from playclass where 1=1
+    <include refid="sql"></include>
+    and status = 0 and isdisabled = 1
+    limit #{start},#{rows}
+  </select>
+
+  <select id="findnochecked"  resultType="com.LeXiang.education.sysAdmin.common.model.PlayClassgtj">
+   select * from playclass where 1=1
+    <include refid="sql"></include>
+    and status = 1 and isdisabled = 1
+    limit #{start},#{rows}
+  </select>
+
+  <select id="findrecycle"  resultType="com.LeXiang.education.sysAdmin.common.model.PlayClassgtj">
+   select * from playclass where isdisabled = 0
+   limit #{start},#{rows}
+  </select>
+<!--  <delete id="delPowerByIds" parameterType="int">
+    delete from t_power where id in
+    <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+    delete a_book where 1=1
+		<if test="idsAll!=null">
+			and
+			<foreach collection="idsAll" item="id" open="bid in(" separator="," close=")">
+				#{id,jdbcType=BIGINT}
+			</foreach>
+		</if>
+  </delete>-->
+  <update id="stopdistribution" parameterType="java.util.HashMap" >
+    update playclass set ismarketing = 1 where 1=1
+    <if test="idsAll!=null">
+    and
+    <foreach collection="idsAll" index="index" item="item" open="id in(" separator="," close=")">
+      #{item}
+    </foreach>
+    </if>
+  </update>
+
+  <update id="startdistribution" parameterType="java.util.HashMap" >
+    update playclass set ismarketing = 0 where 1=1
+    <if test="idsAll!=null">
+      and
+      <foreach collection="idsAll" index="index" item="item" open="id in(" separator="," close=")">
+        #{item}
+      </foreach>
+    </if>
+  </update>
+
+  <update id="startclass" parameterType="long" >
+    update playclass set isdisabled = 1 where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <update id="stopclass" parameterType="java.util.HashMap" >
+    update playclass set isdisabled = 0 where 1=1
+    <if test="idsAll!=null">
+      and
+      <foreach collection="idsAll" index="index" item="item" open="id in(" separator="," close=")">
+        #{item}
+      </foreach>
+    </if>
+  </update>
+
+  <update id="putaway" parameterType="long" >
+    update playclass set isputaway = 0 , uponedate = now() , downdate = null where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <update id="soldout" parameterType="long" >
+    update playclass set isputaway = 1 , downdate = now() where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="updatePlayClassById" resultType="com.LeXiang.education.sysAdmin.common.model.PlayClassgtj">
+		select * from playclass where id=#{id}
+  </select>
+
+  <update id="updatePlayClass" parameterType="com.LeXiang.education.sysAdmin.common.model.PlayClassgtj" >
+    update playclass set playname = #{playname,jdbcType=VARCHAR},
+    playtypeid = #{playtypeid,jdbcType=BIGINT},
+    organizationid = #{organizationid,jdbcType=BIGINT},
+    teacherid = #{teacherid,jdbcType=BIGINT},
+    img = #{img,jdbcType=VARCHAR},
+    intro = #{intro,jdbcType=VARCHAR},
+    validity = #{teacherid,jdbcType=BIGINT},
+    uponedate = #{uponedate,jdbcType=DATE},
+    downdate = #{downdate,jdbcType=DATE},
+    bazaarprice = #{bazaarprice,jdbcType=BIGINT},
+    price = #{price,jdbcType=BIGINT},
+    studentcount = #{studentcount,jdbcType=BIGINT},
+    marketingcount = #{marketingcount,jdbcType=BIGINT},
+    isvip = #{isvip,jdbcType=BIGINT},
+    url = #{url,jdbcType=VARCHAR},
+    userid = #{userid,jdbcType=BIGINT},
+    ischoiceness = #{ischoiceness,jdbcType=BIGINT},
+    orderone = #{orderone,jdbcType=BIGINT},
+    isfree = #{isfree,jdbcType=BIGINT},
+    studymoshi = #{studymoshi,jdbcType=BIGINT},
+    displayposition = #{displayposition,jdbcType=BIGINT},
+    ismarketing = #{ismarketing,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <insert id="addPlayClass" parameterType="com.LeXiang.education.sysAdmin.common.model.PlayClassgtj" >
+    insert into playclass (playname,playtypeid,organizationid,teacherid,img,intro,validity,uponedate,downdate,bazaarprice,
+    price,studentcount,marketingcount,isvip,url,ischoiceness,orderone,isfree,studymoshi,displayposition,ismarketing,status,leixing
+    ,isdisabled,userid,isputaway )
+    values (#{playname,jdbcType=VARCHAR}, #{playtypeid,jdbcType=BIGINT}, #{organizationid,jdbcType=BIGINT},#{teacherid,jdbcType=BIGINT},
+    #{img,jdbcType=VARCHAR},#{intro,jdbcType=VARCHAR},#{validity,jdbcType=BIGINT},#{uponedate,jdbcType=DATE},#{downdate,jdbcType=DATE},#{bazaarprice,jdbcType=BIGINT},
+    #{price,jdbcType=BIGINT},#{studentcount,jdbcType=BIGINT},#{marketingcount,jdbcType=BIGINT},#{isvip,jdbcType=BIGINT},#{url,jdbcType=VARCHAR},
+    #{ischoiceness,jdbcType=BIGINT},#{orderone,jdbcType=BIGINT},#{isfree,jdbcType=BIGINT},#{studymoshi,jdbcType=BIGINT},
+    #{displayposition,jdbcType=BIGINT},#{ismarketing,jdbcType=BIGINT},#{status,jdbcType=BIGINT},#{leixing,jdbcType=BIGINT},#{isdisabled,jdbcType=BIGINT},
+    #{userid,jdbcType=BIGINT},#{isputaway,jdbcType=BIGINT})
+  </insert>
+
+  <delete id="delPlayClassByIds" parameterType="java.util.HashMap">
+    delete from playclass where id in
+    <foreach collection="idsAll" index="index" item="item" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </delete>
+
+  <update id="shenheok" parameterType="long" >
+    update playclass set status = 0,grade=100 where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="findPlayType"  resultType="com.LeXiang.education.sysAdmin.common.model.PlayTypegtj">
+  select * from playtype where pid = 0
+  </select>
+
+  <select id="findPlayTypeOne"  resultType="com.LeXiang.education.sysAdmin.common.model.PlayTypegtj">
+  select * from playtype where pid = #{pid,jdbcType=BIGINT}
+  </select>
+
+  <select id="findOrganization"  resultType="com.LeXiang.education.sysAdmin.common.model.Organizationgtj">
+  select * from organization
+  </select>
+
+
+  <select id="findTeacher"  resultType="com.LeXiang.education.sysAdmin.common.model.Teachergtj">
+  select * from teacher where organizationid = #{organizationid,jdbcType=BIGINT}
+  </select>
+
+  <!--
+  <resultMap id="BaseResultMap" type="com.LeXiang.education.user.common.model.User" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="age" property="age" jdbcType="BIGINT" />
+
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id,name,age
+  </sql>
+  <select id="queryUserById" resultType="com.LeXiang.education.user.common.model.User" parameterType="java.lang.Long" >
+    select
+   *
+    from user
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="delete" parameterType="java.lang.Long" >
+    delete from user
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.LeXiang.education.user.common.model.User" >
+    insert into user (id, age, name
+
+      )
+    values (#{id,jdbcType=BIGINT}, #{age,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}
+      )
+  </insert>
+
+  <update id="update" parameterType="com.LeXiang.education.user.common.model.User" >
+    update user set age = #{age,jdbcType=BIGINT},
+
+
+        name = #{name,jdbcType=VARCHAR}
+
+       where id = #{id,jdbcType=BIGINT}
+  </update>
+
+
+  <select id="userList" parameterType="map" resultMap="BaseResultMap">
+   select * from user order by id desc limit #{page},#{rows}
+  </select>
+  <select id="getCount" resultType="java.lang.Integer">
+    select count(*) from user
+  </select>-->
+</mapper>
