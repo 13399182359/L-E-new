@@ -26,10 +26,10 @@ public interface ClassServiceApi {
     @RequestMapping("/update")
     public Boolean update(@RequestBody Class cls);
 
-    @RequestMapping("/delById")
+    @RequestMapping("/delById1")
     public void delById(@RequestBody Long[] ids);
 
-    @RequestMapping("/updStatus")
+    @RequestMapping("/updStatus1")
     public Boolean updStatus(@RequestBody Long id);
 
     @RequestMapping("/updateStatus")
